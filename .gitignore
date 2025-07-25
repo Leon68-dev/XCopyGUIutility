@@ -1,0 +1,6 @@
+/.vs
+/.vs/*
+
+/UtilXCopy/bin/*
+/UtilXCopy/obj/*
+/UtilXCopy/UtilXCopy.csproj.user
