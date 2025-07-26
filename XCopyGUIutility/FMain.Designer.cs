@@ -44,10 +44,10 @@
             chkY = new CheckBox();
             chkE = new CheckBox();
             chkS = new CheckBox();
+            chkDate = new CheckBox();
             groupBox3 = new GroupBox();
             dtpDate = new DateTimePicker();
             chkJ = new CheckBox();
-            chkDate = new CheckBox();
             chkF = new CheckBox();
             chkC = new CheckBox();
             chkK = new CheckBox();
@@ -69,14 +69,14 @@
             // 
             txtSource.Location = new Point(102, 12);
             txtSource.Name = "txtSource";
-            txtSource.Size = new Size(747, 27);
+            txtSource.Size = new Size(637, 27);
             txtSource.TabIndex = 1;
             // 
             // txtDestination
             // 
             txtDestination.Location = new Point(102, 45);
             txtDestination.Name = "txtDestination";
-            txtDestination.Size = new Size(747, 27);
+            txtDestination.Size = new Size(637, 27);
             txtDestination.TabIndex = 3;
             // 
             // label2
@@ -90,7 +90,7 @@
             // 
             // btnBrowseSource
             // 
-            btnBrowseSource.Location = new Point(855, 11);
+            btnBrowseSource.Location = new Point(745, 11);
             btnBrowseSource.Name = "btnBrowseSource";
             btnBrowseSource.Size = new Size(97, 29);
             btnBrowseSource.TabIndex = 4;
@@ -100,7 +100,7 @@
             // 
             // btnBrowseDestination
             // 
-            btnBrowseDestination.Location = new Point(855, 44);
+            btnBrowseDestination.Location = new Point(745, 44);
             btnBrowseDestination.Name = "btnBrowseDestination";
             btnBrowseDestination.Size = new Size(97, 29);
             btnBrowseDestination.TabIndex = 5;
@@ -111,7 +111,7 @@
             // btnCopy
             // 
             btnCopy.BackColor = SystemColors.ActiveCaption;
-            btnCopy.Location = new Point(758, 230);
+            btnCopy.Location = new Point(748, 225);
             btnCopy.Name = "btnCopy";
             btnCopy.Size = new Size(94, 29);
             btnCopy.TabIndex = 7;
@@ -121,17 +121,19 @@
             // 
             // txtOutput
             // 
-            txtOutput.Location = new Point(12, 267);
+            txtOutput.BackColor = SystemColors.ActiveCaption;
+            txtOutput.ForeColor = SystemColors.WindowText;
+            txtOutput.Location = new Point(12, 294);
             txtOutput.Multiline = true;
             txtOutput.Name = "txtOutput";
-            txtOutput.Size = new Size(940, 288);
+            txtOutput.Size = new Size(830, 265);
             txtOutput.TabIndex = 8;
             // 
             // btnStop
             // 
             btnStop.BackColor = SystemColors.ActiveCaption;
             btnStop.Enabled = false;
-            btnStop.Location = new Point(858, 230);
+            btnStop.Location = new Point(748, 257);
             btnStop.Name = "btnStop";
             btnStop.Size = new Size(94, 29);
             btnStop.TabIndex = 9;
@@ -146,9 +148,9 @@
             groupBox2.Controls.Add(chkY);
             groupBox2.Controls.Add(chkE);
             groupBox2.Controls.Add(chkS);
-            groupBox2.Location = new Point(12, 78);
+            groupBox2.Location = new Point(14, 81);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(378, 181);
+            groupBox2.Size = new Size(379, 205);
             groupBox2.TabIndex = 10;
             groupBox2.TabStop = false;
             groupBox2.Text = "Main Options";
@@ -158,7 +160,7 @@
             chkI.AutoSize = true;
             chkI.Checked = true;
             chkI.CheckState = CheckState.Checked;
-            chkI.Location = new Point(12, 147);
+            chkI.Location = new Point(13, 144);
             chkI.Name = "chkI";
             chkI.Size = new Size(254, 24);
             chkI.TabIndex = 4;
@@ -170,7 +172,7 @@
             chkH.AutoSize = true;
             chkH.Checked = true;
             chkH.CheckState = CheckState.Checked;
-            chkH.Location = new Point(12, 117);
+            chkH.Location = new Point(12, 115);
             chkH.Name = "chkH";
             chkH.Size = new Size(252, 24);
             chkH.TabIndex = 3;
@@ -182,6 +184,7 @@
             chkY.AutoSize = true;
             chkY.Checked = true;
             chkY.CheckState = CheckState.Checked;
+            chkY.Enabled = false;
             chkY.Location = new Point(12, 87);
             chkY.Name = "chkY";
             chkY.Size = new Size(255, 24);
@@ -214,6 +217,18 @@
             chkS.UseVisualStyleBackColor = true;
             chkS.CheckedChanged += chkS_CheckedChanged;
             // 
+            // chkDate
+            // 
+            chkDate.AutoSize = true;
+            chkDate.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
+            chkDate.Location = new Point(12, 175);
+            chkDate.Name = "chkDate";
+            chkDate.Size = new Size(194, 24);
+            chkDate.TabIndex = 0;
+            chkDate.Text = "Copy only newer files (/d)";
+            chkDate.UseVisualStyleBackColor = true;
+            chkDate.CheckedChanged += chkDate_CheckedChanged;
+            // 
             // groupBox3
             // 
             groupBox3.Controls.Add(dtpDate);
@@ -223,9 +238,9 @@
             groupBox3.Controls.Add(chkC);
             groupBox3.Controls.Add(chkK);
             groupBox3.Controls.Add(chkR);
-            groupBox3.Location = new Point(398, 79);
+            groupBox3.Location = new Point(400, 81);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(554, 122);
+            groupBox3.Size = new Size(339, 205);
             groupBox3.TabIndex = 11;
             groupBox3.TabStop = false;
             groupBox3.Text = "Additional Options";
@@ -243,28 +258,17 @@
             // chkJ
             // 
             chkJ.AutoSize = true;
-            chkJ.Location = new Point(239, 86);
+            chkJ.Location = new Point(12, 147);
             chkJ.Name = "chkJ";
             chkJ.Size = new Size(310, 24);
             chkJ.TabIndex = 4;
             chkJ.Text = "Copy without buffering (for large files) (/j)";
             chkJ.UseVisualStyleBackColor = true;
             // 
-            // chkDate
-            // 
-            chkDate.AutoSize = true;
-            chkDate.Location = new Point(239, 28);
-            chkDate.Name = "chkDate";
-            chkDate.Size = new Size(201, 24);
-            chkDate.TabIndex = 0;
-            chkDate.Text = "Copy only newer files (/d)";
-            chkDate.UseVisualStyleBackColor = true;
-            chkDate.CheckedChanged += chkDate_CheckedChanged;
-            // 
             // chkF
             // 
             chkF.AutoSize = true;
-            chkF.Location = new Point(239, 57);
+            chkF.Location = new Point(12, 117);
             chkF.Name = "chkF";
             chkF.Size = new Size(221, 24);
             chkF.TabIndex = 3;
@@ -311,7 +315,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(962, 567);
+            ClientSize = new Size(854, 567);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(btnStop);
