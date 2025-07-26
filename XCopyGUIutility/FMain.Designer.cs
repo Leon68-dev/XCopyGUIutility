@@ -45,17 +45,15 @@
             chkE = new CheckBox();
             chkS = new CheckBox();
             groupBox3 = new GroupBox();
+            dtpDate = new DateTimePicker();
             chkJ = new CheckBox();
+            chkDate = new CheckBox();
             chkF = new CheckBox();
             chkC = new CheckBox();
             chkK = new CheckBox();
             chkR = new CheckBox();
-            groupBox1 = new GroupBox();
-            dtpDate = new DateTimePicker();
-            chkDate = new CheckBox();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
-            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -71,14 +69,14 @@
             // 
             txtSource.Location = new Point(102, 12);
             txtSource.Name = "txtSource";
-            txtSource.Size = new Size(820, 27);
+            txtSource.Size = new Size(747, 27);
             txtSource.TabIndex = 1;
             // 
             // txtDestination
             // 
             txtDestination.Location = new Point(102, 45);
             txtDestination.Name = "txtDestination";
-            txtDestination.Size = new Size(820, 27);
+            txtDestination.Size = new Size(747, 27);
             txtDestination.TabIndex = 3;
             // 
             // label2
@@ -92,7 +90,7 @@
             // 
             // btnBrowseSource
             // 
-            btnBrowseSource.Location = new Point(928, 11);
+            btnBrowseSource.Location = new Point(855, 11);
             btnBrowseSource.Name = "btnBrowseSource";
             btnBrowseSource.Size = new Size(97, 29);
             btnBrowseSource.TabIndex = 4;
@@ -102,7 +100,7 @@
             // 
             // btnBrowseDestination
             // 
-            btnBrowseDestination.Location = new Point(928, 44);
+            btnBrowseDestination.Location = new Point(855, 44);
             btnBrowseDestination.Name = "btnBrowseDestination";
             btnBrowseDestination.Size = new Size(97, 29);
             btnBrowseDestination.TabIndex = 5;
@@ -113,7 +111,7 @@
             // btnCopy
             // 
             btnCopy.BackColor = SystemColors.ActiveCaption;
-            btnCopy.Location = new Point(829, 231);
+            btnCopy.Location = new Point(758, 230);
             btnCopy.Name = "btnCopy";
             btnCopy.Size = new Size(94, 29);
             btnCopy.TabIndex = 7;
@@ -126,14 +124,14 @@
             txtOutput.Location = new Point(12, 267);
             txtOutput.Multiline = true;
             txtOutput.Name = "txtOutput";
-            txtOutput.Size = new Size(1010, 288);
+            txtOutput.Size = new Size(940, 288);
             txtOutput.TabIndex = 8;
             // 
             // btnStop
             // 
             btnStop.BackColor = SystemColors.ActiveCaption;
             btnStop.Enabled = false;
-            btnStop.Location = new Point(929, 231);
+            btnStop.Location = new Point(858, 230);
             btnStop.Name = "btnStop";
             btnStop.Size = new Size(94, 29);
             btnStop.TabIndex = 9;
@@ -218,32 +216,55 @@
             // 
             // groupBox3
             // 
+            groupBox3.Controls.Add(dtpDate);
             groupBox3.Controls.Add(chkJ);
+            groupBox3.Controls.Add(chkDate);
             groupBox3.Controls.Add(chkF);
             groupBox3.Controls.Add(chkC);
             groupBox3.Controls.Add(chkK);
             groupBox3.Controls.Add(chkR);
-            groupBox3.Location = new Point(397, 79);
+            groupBox3.Location = new Point(398, 79);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(324, 181);
+            groupBox3.Size = new Size(554, 122);
             groupBox3.TabIndex = 11;
             groupBox3.TabStop = false;
             groupBox3.Text = "Additional Options";
             // 
+            // dtpDate
+            // 
+            dtpDate.Enabled = false;
+            dtpDate.Format = DateTimePickerFormat.Short;
+            dtpDate.Location = new Point(499, 28);
+            dtpDate.Name = "dtpDate";
+            dtpDate.Size = new Size(115, 27);
+            dtpDate.TabIndex = 1;
+            dtpDate.Visible = false;
+            // 
             // chkJ
             // 
             chkJ.AutoSize = true;
-            chkJ.Location = new Point(12, 147);
+            chkJ.Location = new Point(239, 86);
             chkJ.Name = "chkJ";
             chkJ.Size = new Size(310, 24);
             chkJ.TabIndex = 4;
             chkJ.Text = "Copy without buffering (for large files) (/j)";
             chkJ.UseVisualStyleBackColor = true;
             // 
+            // chkDate
+            // 
+            chkDate.AutoSize = true;
+            chkDate.Location = new Point(239, 28);
+            chkDate.Name = "chkDate";
+            chkDate.Size = new Size(201, 24);
+            chkDate.TabIndex = 0;
+            chkDate.Text = "Copy only newer files (/d)";
+            chkDate.UseVisualStyleBackColor = true;
+            chkDate.CheckedChanged += chkDate_CheckedChanged;
+            // 
             // chkF
             // 
             chkF.AutoSize = true;
-            chkF.Location = new Point(12, 117);
+            chkF.Location = new Point(239, 57);
             chkF.Name = "chkF";
             chkF.Size = new Size(221, 24);
             chkF.TabIndex = 3;
@@ -286,49 +307,17 @@
             chkR.Text = "Overwrite read-only files (/r)";
             chkR.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(dtpDate);
-            groupBox1.Controls.Add(chkDate);
-            groupBox1.Location = new Point(727, 79);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(295, 101);
-            groupBox1.TabIndex = 12;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Additional Options";
-            // 
-            // dtpDate
-            // 
-            dtpDate.Enabled = false;
-            dtpDate.Format = DateTimePickerFormat.Short;
-            dtpDate.Location = new Point(14, 64);
-            dtpDate.Name = "dtpDate";
-            dtpDate.Size = new Size(115, 27);
-            dtpDate.TabIndex = 1;
-            // 
-            // chkDate
-            // 
-            chkDate.AutoSize = true;
-            chkDate.Location = new Point(12, 28);
-            chkDate.Name = "chkDate";
-            chkDate.Size = new Size(281, 24);
-            chkDate.TabIndex = 0;
-            chkDate.Text = "Checkbox to enable date filtering (/d)";
-            chkDate.UseVisualStyleBackColor = true;
-            chkDate.CheckedChanged += chkDate_CheckedChanged;
-            // 
             // FMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1032, 567);
-            Controls.Add(groupBox1);
+            ClientSize = new Size(962, 567);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(btnStop);
             Controls.Add(txtOutput);
-            Controls.Add(btnCopy);
             Controls.Add(btnBrowseDestination);
+            Controls.Add(btnCopy);
             Controls.Add(btnBrowseSource);
             Controls.Add(txtDestination);
             Controls.Add(label2);
@@ -345,8 +334,6 @@
             groupBox2.PerformLayout();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -377,6 +364,5 @@
         private GroupBox groupBox4;
         private DateTimePicker dtpDate;
         private CheckBox chkDate;
-        private GroupBox groupBox1;
     }
 }

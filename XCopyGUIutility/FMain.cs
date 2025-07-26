@@ -20,7 +20,7 @@ namespace XCopyGUIutility
                 dialog.Description = "Select the source folder";
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    Controls["txtSource"]!.Text = dialog.SelectedPath;
+                    txtSource.Text = dialog.SelectedPath;
                 }
             }
         }
@@ -33,7 +33,7 @@ namespace XCopyGUIutility
                 dialog.Description = "Select the destination folder";
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    Controls["txtDestination"]!.Text = dialog.SelectedPath;
+                    txtDestination.Text = dialog.SelectedPath;
                 }
             }
         }
@@ -42,7 +42,6 @@ namespace XCopyGUIutility
         private void chkS_CheckedChanged(object? sender, EventArgs e)
         {
             var chkS = (CheckBox)sender!;
-            var chkE = (CheckBox)Controls.Find("chkE", true)[0];
             chkE.Enabled = chkS.Checked;
             if (!chkS.Checked)
             {
@@ -52,13 +51,6 @@ namespace XCopyGUIutility
 
         private async void btnCopy_Click(object? sender, EventArgs e)
         {
-            // --- Get all controls ---
-            var txtSource = (TextBox)Controls.Find("txtSource", true)[0];
-            var txtDestination = (TextBox)Controls.Find("txtDestination", true)[0];
-            var txtOutput = (TextBox)Controls.Find("txtOutput", true)[0];
-            var btnCopy = (Button)Controls.Find("btnCopy", true)[0];
-            var btnStop = (Button)Controls.Find("btnStop", true)[0];
-
             // --- Input Validation ---
             if (string.IsNullOrWhiteSpace(txtSource.Text) || string.IsNullOrWhiteSpace(txtDestination.Text))
             {
@@ -75,9 +67,6 @@ namespace XCopyGUIutility
             // --- Build xcopy arguments ---
             var argsBuilder = new StringBuilder();
 
-            // --- CRITICAL FIX: Ensure source path targets the FOLDER'S CONTENTS ---
-            // Append a backslash to the source path to ensure we copy its content.
-            // xcopy treats "C:\Folder" and "C:\Folder\" differently.
             string sourcePath = txtSource.Text;
             if (!sourcePath.EndsWith("\\"))
             {
@@ -86,30 +75,42 @@ namespace XCopyGUIutility
 
             // Add source and destination paths with quotes
             argsBuilder.Append($"\"{sourcePath}\" \"{txtDestination.Text}\" ");
+            
+            if (chkS.Checked) 
+                argsBuilder.Append("/S ");
 
-            // Use Controls.Find to be safe, even inside a groupbox
-            if (((CheckBox)Controls.Find("chkS", true)[0])!.Checked) argsBuilder.Append("/S ");
-            if (((CheckBox)Controls.Find("chkE", true)[0])!.Checked) argsBuilder.Append("/E ");
-            if (((CheckBox)Controls.Find("chkY", true)[0])!.Checked) argsBuilder.Append("/Y ");
-            if (((CheckBox)Controls.Find("chkH", true)[0])!.Checked) argsBuilder.Append("/H ");
-            if (((CheckBox)Controls.Find("chkI", true)[0])!.Checked) argsBuilder.Append("/I "); // This one is also important!
-            if (((CheckBox)Controls.Find("chkR", true)[0])!.Checked) argsBuilder.Append("/R ");
-            if (((CheckBox)Controls.Find("chkK", true)[0])!.Checked) argsBuilder.Append("/K ");
-            if (((CheckBox)Controls.Find("chkC", true)[0])!.Checked) argsBuilder.Append("/C ");
-            if (((CheckBox)Controls.Find("chkF", true)[0])!.Checked) argsBuilder.Append("/F ");
-            if (((CheckBox)Controls.Find("chkJ", true)[0])!.Checked) argsBuilder.Append("/J ");
+            if (chkE.Checked) 
+                argsBuilder.Append("/E ");
+            
+            if (chkY.Checked) 
+                argsBuilder.Append("/Y ");
+            
+            if (chkH.Checked) 
+                argsBuilder.Append("/H ");
+            
+            if (chkI.Checked) 
+                argsBuilder.Append("/I "); // This one is also important!
+            
+            if (chkR.Checked) 
+                argsBuilder.Append("/R ");
+            
+            if (chkK.Checked) 
+                argsBuilder.Append("/K ");
+            
+            if (chkC.Checked) 
+                argsBuilder.Append("/C ");
+            
+            if (chkF.Checked) 
+                argsBuilder.Append("/F ");
+            
+            if (chkJ.Checked) 
+                argsBuilder.Append("/J ");
 
-            // Handle the date parameter
-            var chkDate = (CheckBox)Controls.Find("chkDate", true)[0];
+            
             if (chkDate.Checked)
-            {
-                var dtpDate = (DateTimePicker)Controls.Find("dtpDate", true)[0];
-                argsBuilder.Append($"/D:{dtpDate.Value:MM-dd-yyyy} ");
+                //argsBuilder.Append($"/D:{dtpDate.Value:MM-dd-yyyy} ");
+                argsBuilder.Append($"/D ");
 
-            }
-
-            // You can uncomment this line for debugging to see the final command
-            // MessageBox.Show($"Executing: xcopy.exe {argsBuilder.ToString()}", "Final Command");
 
             // --- Run the process ---
             try
@@ -123,8 +124,17 @@ namespace XCopyGUIutility
                 _xcopyProcess.StartInfo.CreateNoWindow = true;
                 _xcopyProcess.EnableRaisingEvents = true;
 
-                _xcopyProcess.OutputDataReceived += (s, ev) => { if (ev.Data != null) { this.Invoke(() => txtOutput.AppendText(ev.Data + "\r\n")); } };
-                _xcopyProcess.ErrorDataReceived += (s, ev) => { if (ev.Data != null) { this.Invoke(() => txtOutput.AppendText("ERROR: " + ev.Data + "\r\n")); } };
+                _xcopyProcess.OutputDataReceived += (s, ev) => 
+                { 
+                    if (ev.Data != null) 
+                        this.Invoke(() => txtOutput.AppendText(ev.Data + "\r\n")); 
+                };
+                
+                _xcopyProcess.ErrorDataReceived += (s, ev) => 
+                { 
+                    if (ev.Data != null) 
+                        this.Invoke(() => txtOutput.AppendText("ERROR: " + ev.Data + "\r\n")); 
+                };
 
                 _xcopyProcess.Start();
                 _xcopyProcess.BeginOutputReadLine();
@@ -153,7 +163,7 @@ namespace XCopyGUIutility
                 try
                 {
                     _xcopyProcess.Kill();
-                    ((TextBox)Controls.Find("txtOutput", true)[0])?.AppendText("\r\n--- PROCESS STOPPED BY USER ---");
+                    txtOutput.AppendText("\r\n--- PROCESS STOPPED BY USER ---");
 
                     btnCopy.Enabled = true;
                     btnStop.Enabled = false;
@@ -169,15 +179,10 @@ namespace XCopyGUIutility
 
         private void chkDate_CheckedChanged(object sender, EventArgs e)
         {
-            var chkDate = (CheckBox)Controls.Find("chkDate", true)[0];
             if (!chkDate.Checked)
-            {
                 dtpDate.Enabled = false;
-            }
             else
-            {
                 dtpDate.Enabled = true;
-            }
         }
     }
 }
