@@ -149,11 +149,7 @@ namespace XCopyGUIutility
             }
             finally
             {
-                // --- Reset UI State ---
-                btnCopy.Enabled = true;
-                btnStop.Enabled = false;
-                _xcopyProcess?.Dispose();
-                _xcopyProcess = null;
+                resetUIstate();
             }
         }
         private void btnStop_Click(object? sender, EventArgs e)
@@ -165,16 +161,21 @@ namespace XCopyGUIutility
                     _xcopyProcess.Kill();
                     txtOutput.AppendText("\r\n--- PROCESS STOPPED BY USER ---");
 
-                    btnCopy.Enabled = true;
-                    btnStop.Enabled = false;
-                    _xcopyProcess?.Dispose();
-                    _xcopyProcess = null;
+                    resetUIstate();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Could not stop the process: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void resetUIstate() 
+        {
+            btnCopy.Enabled = true;
+            btnStop.Enabled = false;
+            _xcopyProcess?.Dispose();
+            _xcopyProcess = null;
         }
 
         private void chkDate_CheckedChanged(object sender, EventArgs e)
