@@ -327,11 +327,13 @@
             Controls.Add(label2);
             Controls.Add(txtSource);
             Controls.Add(label1);
+            DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FMain";
+            Opacity = 0.8D;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "XCopy GUI Utility";
             groupBox2.ResumeLayout(false);

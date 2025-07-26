@@ -10,6 +10,8 @@ namespace XCopyGUIutility
         public FMain()
         {
             InitializeComponent();
+
+            dtpDate.Value = DateTime.Now;
         }
 
         private void btnBrowseSource_Click(object sender, EventArgs e)
