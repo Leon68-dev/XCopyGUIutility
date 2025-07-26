@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Text;
 
-namespace UtilXCopy
+namespace XCopyGUIutility
 {
     public partial class FMain : Form
     {

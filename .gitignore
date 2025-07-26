@@ -1,6 +1,6 @@
 /.vs
 /.vs/*
 
-/UtilXCopy/bin/*
-/UtilXCopy/obj/*
-/UtilXCopy/UtilXCopy.csproj.user
+/XCopyGUIutility/bin/*
+/XCopyGUIutility/obj/*
+/XCopyGUIutility/XCopyGUIutility.csproj.user

@@ -1,4 +1,4 @@
-﻿namespace UtilXCopy
+﻿namespace XCopyGUIutility
 {
     partial class FMain
     {

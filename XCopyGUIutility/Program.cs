@@ -1,4 +1,4 @@
-namespace UtilXCopy
+namespace XCopyGUIutility
 {
     internal static class Program
     {
