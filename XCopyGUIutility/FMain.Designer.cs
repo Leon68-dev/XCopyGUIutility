@@ -183,6 +183,8 @@
             // chkDate
             // 
             chkDate.AutoSize = true;
+            chkDate.Checked = true;
+            chkDate.CheckState = CheckState.Checked;
             chkDate.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
             chkDate.Location = new Point(13, 174);
             chkDate.Name = "chkDate";
